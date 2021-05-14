@@ -1,0 +1,42 @@
+2021-05-14 13:20:05 INFO  GlobalStepDefinition:24 - Inside Setup method
+2021-05-14 13:20:05 INFO  SeleniumUtil:62 - Inside static block
+2021-05-14 13:20:05 INFO  GlobalStepDefinition:32 - user navigates to login page
+2021-05-14 13:20:07 INFO  SeleniumUtil:156 - Inside maximizeBrowser Method
+2021-05-14 13:20:07 INFO  SeleniumUtil:172 - Inside getConfigProperties Method
+2021-05-14 13:20:07 INFO  SeleniumUtil:167 - Inside launchApplication with url Method
+2021-05-14 13:20:14 INFO  SeleniumUtil:223 -  print the sysc time 30
+2021-05-14 13:20:14 DEBUG SeleniumUtil:184 - inside getWebElement by method
+2021-05-14 13:20:15 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:15 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:17 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:17 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:17 INFO  SeleniumUtil:288 - Inside selectWebList
+2021-05-14 13:20:17 DEBUG SeleniumUtil:295 - Selected by-selectByVisibleText
+2021-05-14 13:20:17 INFO  SeleniumUtil:288 - Inside selectWebList
+2021-05-14 13:20:17 DEBUG SeleniumUtil:295 - Selected by-selectByVisibleText
+2021-05-14 13:20:17 INFO  SeleniumUtil:288 - Inside selectWebList
+2021-05-14 13:20:17 DEBUG SeleniumUtil:295 - Selected by-selectByVisibleText
+2021-05-14 13:20:17 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:18 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:19 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:20 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:20 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:20 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:20 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:22 INFO  SeleniumUtil:345 - inside robotUploadFile method
+2021-05-14 13:20:26 INFO  SeleniumUtil:269 - Inside ValidateWebElementPresence method
+2021-05-14 13:20:26 INFO  SeleniumUtil:257 - Inside objExplicitWait method
+2021-05-14 13:20:30 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:30 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:32 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:32 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:32 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:32 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:32 DEBUG SeleniumUtil:177 - inside getWebElement
+2021-05-14 13:20:40 DEBUG SeleniumUtil:184 - inside getWebElement by method
+2021-05-14 13:20:42 DEBUG SeleniumUtil:184 - inside getWebElement by method
+2021-05-14 13:20:42 DEBUG SeleniumUtil:184 - inside getWebElement by method
+2021-05-14 13:20:42 DEBUG SeleniumUtil:184 - inside getWebElement by method
+2021-05-14 13:20:43 DEBUG SeleniumUtil:184 - inside getWebElement by method
+2021-05-14 13:20:43 DEBUG SeleniumUtil:184 - inside getWebElement by method
+2021-05-14 13:20:43 INFO  GlobalStepDefinition:48 - Inside Teardown method

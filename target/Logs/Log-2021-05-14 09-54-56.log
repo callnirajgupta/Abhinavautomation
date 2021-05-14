@@ -1,0 +1,8 @@
+2021-05-14 09:54:56 INFO  GlobalStepDefinition:22 - Inside Setup method
+2021-05-14 09:54:56 INFO  SeleniumUtil:56 - Inside static block
+2021-05-14 09:54:56 INFO  GlobalStepDefinition:30 - user navigates to login page
+2021-05-14 09:54:58 INFO  SeleniumUtil:146 - Inside maximizeBrowser Method
+2021-05-14 09:54:58 INFO  SeleniumUtil:162 - Inside getConfigProperties Method
+2021-05-14 09:54:58 INFO  SeleniumUtil:157 - Inside launchApplication with url Method
+2021-05-14 09:55:07 INFO  SeleniumUtil:213 -  print the sysc time 30
+2021-05-14 09:55:07 INFO  GlobalStepDefinition:45 - Inside Teardown method
