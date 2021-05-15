@@ -39,7 +39,8 @@ public class HomePage {
 	public static final By EMAIL =By.id("email");
 	public static final By PHONE =By.xpath("//input[@id='phone']");
 	public static final By PERSONAL_OFFER =By.xpath("//button[text()='Ontvang indicatief persoonlijk aanbod']");
-	
+	public static final By RENTING_STEP_SKIP =By.xpath("//span[text()='Volgende stap']");
+
 	
 	
 	
@@ -129,8 +130,9 @@ public class HomePage {
 	   SeleniumUtil.getWebElement(DEPRECIATION).sendKeys(depreciation);
 	}
  
-   public static void clickNeeBtn() {
-		
+   public static void clickNeeBtn() throws InterruptedException {
+	   SeleniumUtil.validateWebElementVisible(NEE, 30);
+	   Thread.sleep(2000);
 		SeleniumUtil.getWebElement(NEE).click();
 	}
    public static void clickNextBtn() {
@@ -160,5 +162,11 @@ public class HomePage {
 		
 		SeleniumUtil.getWebElements(PERSONAL_OFFER).get(1).click();
 	}
+   public static void clickSkip() throws InterruptedException {
+	   SeleniumUtil.validateWebElementVisible(RENTING_STEP_SKIP, 30);
+	   Thread.sleep(2000);
+		SeleniumUtil.getWebElement(RENTING_STEP_SKIP).click();
+	}
 	
+  
 }

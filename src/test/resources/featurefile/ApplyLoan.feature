@@ -1,7 +1,7 @@
 @login @Regression
 Feature: Mandatory field validation of login page
 
-  @login1
+  @happyflow
   Scenario Outline: Field validation of email address  and password and captcha in login page
     Given user navigates to home page
     When user click on Do the check button
@@ -23,5 +23,5 @@ Feature: Mandatory field validation of login page
     Examples: 
       | COMPANY_NAME             | LOAN_AMOUNT |SELECT_REASON  | SELECT_NTTB   |SELECT_COMPLEX|FILE_NAME|YEARLY_REVENUE|NET_PROFIT|DEPRECIATION|FIRST_NAME|LAST_NAME|EMAIL|PHONE|
       | Flevo Landscaping B.V.   | 56000       |werkkapitaal   | Niet Rabobank |een bedrijf|RABO_ExLow-PD_v2.swi|780000|670000|1200|Abhinav|Jain|abhinav.jain@rabobank.nl|0647852992|
-      
+      #| Flevo Landscaping B.V.   | 56000       |werkkapitaal   | Niet Rabobank |een bedrijf|RABO_ExLow-PD_v2.swi|780000|670000|1200|Abhinav|Jain|abhinav.jain@rabobank.nl|0647852992|
      

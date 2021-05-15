@@ -62,12 +62,15 @@ public class LoanCheck {
 
 	
 	@When("^user click on nee button$")
-	public void clickNee() {
+	public void clickNee() throws InterruptedException {
 		HomePage.clickNeeBtn();
+		//HomePage.clickSkip();
+		
 	}
 	@When("^user click on next button$")
-	public void clickNext() {
+	public void clickNext() throws InterruptedException {
 		HomePage.clickNextBtn();
+		HomePage.clickSkip();
 	}
 	
 	@When("^user click on view offer button$")
