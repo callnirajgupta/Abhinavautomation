@@ -60,9 +60,9 @@ public class GlobalStepDefinition {
 		}
 		if (SeleniumUtil.getDriver() != null) {
 			
-			//SeleniumUtil.closeBrowser();
-			//SeleniumUtil.setDriver(null);
-			//SeleniumUtil.driverStatus=false;
+			SeleniumUtil.closeBrowser();
+			SeleniumUtil.setDriver(null);
+			SeleniumUtil.driverStatus=false;
 		}
 
 		
