@@ -40,6 +40,7 @@ public class HomePage {
 	public static final By PHONE =By.xpath("//input[@id='phone']");
 	public static final By PERSONAL_OFFER =By.xpath("//button[text()='Ontvang indicatief persoonlijk aanbod']");
 	public static final By RENTING_STEP_SKIP =By.xpath("//span[text()='Volgende stap']");
+	public static final By LEAVE_DATA= By.xpath("//button[text()='Gegevens achterlaten']");
 
 	
 	
@@ -149,11 +150,11 @@ public class HomePage {
 		elementList.get(butttonId).click();
 	}
    
-   public static void enterfinancing(String FirstName,String lastName,String email ,String phone) {
-	   SeleniumUtil.getWebElements(FIRST_NAME).get(1).sendKeys(FirstName);
-	   SeleniumUtil.getWebElements(LAST_NAME).get(1).sendKeys(lastName);
-	   SeleniumUtil.getWebElements(EMAIL).get(1).sendKeys(email);
-	   SeleniumUtil.getWebElements(PHONE).get(2).sendKeys(phone);
+   public static void enterfinancing(int index,String FirstName,String lastName,String email ,String phone) {
+	   SeleniumUtil.getWebElements(FIRST_NAME).get(index).sendKeys(FirstName);
+	   SeleniumUtil.getWebElements(LAST_NAME).get(index).sendKeys(lastName);
+	   SeleniumUtil.getWebElements(EMAIL).get(index).sendKeys(email);
+	   SeleniumUtil.getWebElements(PHONE).get(index).sendKeys(phone);
 	}
    
    
@@ -168,5 +169,10 @@ public class HomePage {
 		SeleniumUtil.getWebElement(RENTING_STEP_SKIP).click();
 	}
 	
+   public static void clickLeaveData() throws InterruptedException {
+	   SeleniumUtil.validateWebElementVisible(LEAVE_DATA, 30);
+	   Thread.sleep(2000);
+		SeleniumUtil.getWebElement(LEAVE_DATA).click();
+	}
   
 }

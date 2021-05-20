@@ -84,11 +84,22 @@ public class LoanCheck {
 	}
 	@When("^user enter data for financing immediately as \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void user_enter_data_for_financing_immediately_as_and_and_and(String firstName, String lastName, String email, String phone) throws Throwable {
-		HomePage.enterfinancing(firstName, lastName, email, phone);
+		HomePage.enterfinancing(0,firstName, lastName, email, phone);
 	}
 	@When("^user click on personal offer$")
 	public void clickPersonalofffer() {
 		HomePage.clickPersonalOfferBtn();
+		LogEntries jsErrors = SeleniumUtil.getDriver().manage().logs().get(LogType.BROWSER);
+		
+		System.out.println("Print all Log"+jsErrors.getAll());
+		String scriptToExecute = "var performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance || {}; var network = performance.getEntries() || {}; return network;";
+		String netData = ((JavascriptExecutor)SeleniumUtil.getDriver()).executeScript(scriptToExecute).toString();
+		System.out.println("network data"+netData);
+	}
+	
+	@When("^user click on leave data$")
+	public void clickLeaveData() throws InterruptedException {
+		HomePage.clickLeaveData();
 		LogEntries jsErrors = SeleniumUtil.getDriver().manage().logs().get(LogType.BROWSER);
 		
 		System.out.println("Print all Log"+jsErrors.getAll());
