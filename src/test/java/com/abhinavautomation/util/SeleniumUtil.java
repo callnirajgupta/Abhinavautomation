@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -45,6 +46,9 @@ import com.relevantcodes.extentreports.LogStatus;
 
 import cucumber.api.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import net.lightbody.bmp.BrowserMobProxyServer;
+import net.lightbody.bmp.client.ClientUtil;
+import net.lightbody.bmp.proxy.CaptureType;
 
 public class SeleniumUtil {
 	private static final Logger LOGGER = LogManager.getLogger(SeleniumUtil.class);
@@ -54,9 +58,11 @@ public class SeleniumUtil {
 	private static Properties configProperties;
 	private static final String configFile = System.getProperty("user.dir")
 			+ "//src//test//resources//config//Config.properties";
-	private static String screenShotFolder = System.getProperty("user.dir") + "//src//test//resources//ExtendReportSnap//";
+	private static String screenShotFolder = System.getProperty("user.dir")
+			+ "//src//test//resources//ExtendReportSnap//";
 	public static int waitBrowserSync;
 	public static int waitWebElementSync;
+	public static BrowserMobProxyServer proxyServer = null;
 
 	static {
 		LOGGER.info("Inside static block");
@@ -91,47 +97,59 @@ public class SeleniumUtil {
 
 			if ("firefox".equalsIgnoreCase(System.getProperty("Browser"))) {
 				LOGGER.info("Inside Firefox browser initialization");
-			    WebDriverManager.firefoxdriver().setup();
-			    
+				WebDriverManager.firefoxdriver().setup();
+
 				driver = new FirefoxDriver();
 				driverStatus = true;
 				LOGGER.debug("FireFox Browser launched successfully");
-			}else if ("IE".equalsIgnoreCase(System.getProperty("Browser"))) {
+			} else if ("IE".equalsIgnoreCase(System.getProperty("Browser"))) {
 				LOGGER.info("Inside IE browser initialization");
 				WebDriverManager.iedriver().setup();
 
 				driver = new InternetExplorerDriver();
 				driverStatus = true;
 				LOGGER.debug("IE Browser launched successfully");
-			}else if ("Chrome".equalsIgnoreCase(System.getProperty("Browser"))) {
-				if("docker".equalsIgnoreCase(System.getProperty("Remote"))) {
-					//System.setProperty("webdriver.chrome.driver","/usr/bin/chromedriver");
+			} else if ("Chrome".equalsIgnoreCase(System.getProperty("Browser"))) {
+				if ("docker".equalsIgnoreCase(System.getProperty("Remote"))) {
+					// System.setProperty("webdriver.chrome.driver","/usr/bin/chromedriver");
 					WebDriverManager.chromedriver().setup();
 					ChromeOptions chromeOptions = new ChromeOptions();
-					//chromeOptions.addArguments("headless");  
-					//chromeOptions.addArguments("--proxy-server='direct://'");
-					//chromeOptions.addArguments("--proxy-bypass-list=*");
-					//driver = new ChromeDriver(chromeOptions);
-					
-					
-					  try { driver = new RemoteWebDriver(new
-					  java.net.URL("http://localhost:4444/wd/hub"),chromeOptions); } catch
-					  (MalformedURLException e) { // TODO Auto-generated catch block
-					  e.printStackTrace(); }
-					 
-					 
+					// chromeOptions.addArguments("headless");
+					// chromeOptions.addArguments("--proxy-server='direct://'");
+					// chromeOptions.addArguments("--proxy-bypass-list=*");
+					// driver = new ChromeDriver(chromeOptions);
+
+					try {
+						driver = new RemoteWebDriver(new java.net.URL("http://localhost:4444/wd/hub"), chromeOptions);
+					} catch (MalformedURLException e) { // TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
 					driverStatus = true;
-				}else {
+				} else {
+
+					/*
+					 * BrowserMobProxyServer proxyServer = new BrowserMobProxyServer();
+					 * proxyServer.start();
+					 * 
+					 * // capture content as a HAR (HTTP Archive) // to process when test is
+					 * complete proxyServer.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT,
+					 * CaptureType.RESPONSE_CONTENT); proxyServer.newHar(); final Proxy proxyConfig
+					 * = ClientUtil.createSeleniumProxy(proxyServer);
+					 * 
+					 * String proxyDetails = "127.0.0.1:8080"; final Proxy proxyConfig = new
+					 * Proxy(). setHttpProxy(proxyDetails). setSslProxy(proxyDetails);
+					 * 
+					 * 
+					 * final ChromeOptions options = new ChromeOptions();
+					 * options.setProxy(proxyConfig); options.setAcceptInsecureCerts(true);
+					 */
 					WebDriverManager.chromedriver().setup();
-					DesiredCapabilities d = DesiredCapabilities.chrome();
-					LoggingPreferences logPrefs = new LoggingPreferences();
-					logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
-					d.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
-					driver = new ChromeDriver(d);
+					driver = new ChromeDriver();
 					driverStatus = true;
 				}
-				
-			}else if ("Edge".equalsIgnoreCase(System.getProperty("Browser"))){
+
+			} else if ("Edge".equalsIgnoreCase(System.getProperty("Browser"))) {
 				WebDriverManager.edgedriver().setup();
 				driver = new EdgeDriver();
 				driverStatus = true;
@@ -175,7 +193,7 @@ public class SeleniumUtil {
 
 	public static WebElement getWebElement(By by) {
 		LOGGER.debug("inside getWebElement");
-		
+
 		WebElement webElement = driver.findElement(by);
 		return webElement;
 	}
@@ -231,6 +249,7 @@ public class SeleniumUtil {
 				.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(driver.findElement(By.xpath(frame))));
 
 	}
+
 	public static void switchFrame(WebElement frame) {
 		LOGGER.info("inside switchFrame method");
 		driver.switchTo().frame(frame);
@@ -270,11 +289,10 @@ public class SeleniumUtil {
 		objExplicitWait(wait).until(ExpectedConditions.visibilityOfElementLocated(by));
 
 	}
-	
+
 	public static void validateWebElementNotVisible(By by, int wait) {
 		LOGGER.info("Inside ValidateWebElementPresence method");
 		objExplicitWait(wait).until(ExpectedConditions.invisibilityOfElementLocated(by));
-		
 
 	}
 
@@ -345,14 +363,14 @@ public class SeleniumUtil {
 		LOGGER.info("inside robotUploadFile method");
 		StringSelection stringSelection = new StringSelection(filePath);
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
-        
+
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_CONTROL);
 		robot.keyPress(KeyEvent.VK_V);
 		robot.keyRelease(KeyEvent.VK_V);
 		robot.keyRelease(KeyEvent.VK_CONTROL);
 
-		 Thread.sleep(3000);
+		Thread.sleep(3000);
 		robot.keyPress(KeyEvent.VK_TAB);
 		robot.keyRelease(KeyEvent.VK_TAB);
 		robot.keyPress(KeyEvent.VK_TAB);
@@ -369,7 +387,7 @@ public class SeleniumUtil {
 		getWebElement(by).click();
 
 	}
-    
+
 	public static void clearWebElement(By by, int wait) {
 		LOGGER.info("inside clickWebElement method");
 		validateWebElementVisible(by, wait);
@@ -377,13 +395,14 @@ public class SeleniumUtil {
 		getWebElement(by).clear();
 
 	}
+
 	public static void scrollToWebElement(By by) {
 		LOGGER.info("inside scrollToWebElement method");
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", getWebElement(by));
 
 	}
-	
-	public static void scrollUp(){
+
+	public static void scrollUp() {
 		LOGGER.info("inside scrollUp method");
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0, -document.body.scrollHeight);");
 	}
@@ -393,6 +412,7 @@ public class SeleniumUtil {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 
 	}
+
 	public static void setValue(By by, int wait, String value) {
 		LOGGER.info("inside setValue method");
 		validateWebElementPresence(by, wait);
@@ -430,79 +450,76 @@ public class SeleniumUtil {
 		}
 
 	}
-	public static String takeScreenShotReturnPath() throws IOException{
+
+	public static String takeScreenShotReturnPath() throws IOException {
 		LOGGER.info("inside takeScreenShotReturnPath method");
-		Date date= new Date();
-		Long time=date.getTime();
+		Date date = new Date();
+		Long time = date.getTime();
 		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		String imagePath=screenShotFolder  + time+".png";
+		String imagePath = screenShotFolder + time + ".png";
 		Files.copy(scrFile, new File(imagePath));
 		return imagePath;
 	}
-	
-	public static void EmbedScreenShot(Scenario scenario){
+
+	public static void EmbedScreenShot(Scenario scenario) {
 		LOGGER.info("inside EmbedScreenShot method");
-		final byte[] screenshot =  ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+		final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 		scenario.embed(screenshot, "image/png"); // stick it in the report
-		
+
 	}
-	
-	
-	public static void PassTestStep(WebDriver driver,ExtentTest test,String passMessage) {
+
+	public static void PassTestStep(WebDriver driver, ExtentTest test, String passMessage) {
 		LOGGER.info("inside PassTestStep method");
-		try{
-		String imagePath=takeScreenShotReturnPath(); 
-		String snapPath=test.addScreenCapture(imagePath);
-		test.log(LogStatus.PASS, passMessage,snapPath);
-	   }catch(Exception e){
-			
+		try {
+			String imagePath = takeScreenShotReturnPath();
+			String snapPath = test.addScreenCapture(imagePath);
+			test.log(LogStatus.PASS, passMessage, snapPath);
+		} catch (Exception e) {
+
 		}
-				
-				
-				
+
 	}
-	public static  void failTestStep(WebDriver driver,ExtentTest test,String failureMessage) {
+
+	public static void failTestStep(WebDriver driver, ExtentTest test, String failureMessage) {
 		LOGGER.info("inside failTestStep method");
-		try{
-		String imagePath=takeScreenShotReturnPath();
-		String snapPath=test.addScreenCapture(imagePath);
-		test.log(LogStatus.FAIL, failureMessage,snapPath);
-		}catch(Exception e){
-			
+		try {
+			String imagePath = takeScreenShotReturnPath();
+			String snapPath = test.addScreenCapture(imagePath);
+			test.log(LogStatus.FAIL, failureMessage, snapPath);
+		} catch (Exception e) {
+
 		}
-		
+
 	}
-	
-	public static void refreshPage(){
+
+	public static void refreshPage() {
 		LOGGER.info("inside refreshPage method");
 		driver.navigate().refresh();
-		
-		
-	}
-	public static Logs getBrowserConsoleLogs()
-    {
-   Logs log= driver.manage().logs();
-    
-    return log;
-    }
 
-	public static void doubleClick(By locator){
+	}
+
+	public static Logs getBrowserConsoleLogs() {
+		Logs log = driver.manage().logs();
+
+		return log;
+	}
+
+	public static void doubleClick(By locator) {
 		Actions actions = new Actions(driver);
 		WebElement elementLocator = driver.findElement(locator);
 		actions.doubleClick(elementLocator).perform();
-		
+
 	}
-	
-	public static void javascriptClickElement(By locator){
-		WebElement element=SeleniumUtil.getWebElement(locator);
-		JavascriptExecutor executor = (JavascriptExecutor)SeleniumUtil.getDriver();
+
+	public static void javascriptClickElement(By locator) {
+		WebElement element = SeleniumUtil.getWebElement(locator);
+		JavascriptExecutor executor = (JavascriptExecutor) SeleniumUtil.getDriver();
 		executor.executeScript("arguments[0].click();", element);
 	}
-	
-	public static void javaScriptSendKey(String name,String value) {
-		JavascriptExecutor jse = (JavascriptExecutor)driver;
-		jse.executeScript("document.getElementByName(name).setAttribute('value', value)");	
+
+	public static void javaScriptSendKey(String name, String value) {
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("document.getElementByName(name).setAttribute('value', value)");
 	}
-	
-	
+
 }

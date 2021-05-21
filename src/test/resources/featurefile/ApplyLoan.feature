@@ -43,7 +43,7 @@ Feature: Mandatory field validation of login page
     And user click on next button
     And user click on view offer button
     #And user click on 1 apply button 
-    And user enter data for financing immediately as "<FIRST_NAME>" and "<LAST_NAME>" and "<EMAIL>" and "<PHONE>"
+    And user enter data for discuss your options as "<FIRST_NAME>" and "<LAST_NAME>" and "<EMAIL>" and "<PHONE>"
     And user click on leave data
     
     Examples: 

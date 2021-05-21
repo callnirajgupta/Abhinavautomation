@@ -1,5 +1,6 @@
 package com.abhinavautomation.stepdef;
 
+import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogType;
@@ -8,6 +9,8 @@ import com.abhinavautomation.pageobject.HomePage;
 import com.abhinavautomation.util.SeleniumUtil;
 
 import cucumber.api.java.en.When;
+import net.lightbody.bmp.core.har.Har;
+import net.lightbody.bmp.core.har.HarEntry;
 
 public class LoanCheck {
 	
@@ -84,27 +87,44 @@ public class LoanCheck {
 	}
 	@When("^user enter data for financing immediately as \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void user_enter_data_for_financing_immediately_as_and_and_and(String firstName, String lastName, String email, String phone) throws Throwable {
-		HomePage.enterfinancing(0,firstName, lastName, email, phone);
+		
+			HomePage.enterfinancing(1,firstName, lastName, email, phone,2);
+		
 	}
+	@When("^user enter data for discuss your options as \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$")
+	public void user_enter_data_for_discuss_your_options_as_and_and_and(String firstName, String lastName, String email, String phone) throws Throwable {
+		
+			HomePage.enterfinancing(0,firstName, lastName, email, phone,0);
+		
+	}
+	
 	@When("^user click on personal offer$")
 	public void clickPersonalofffer() {
 		HomePage.clickPersonalOfferBtn();
-		LogEntries jsErrors = SeleniumUtil.getDriver().manage().logs().get(LogType.BROWSER);
-		
-		System.out.println("Print all Log"+jsErrors.getAll());
-		String scriptToExecute = "var performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance || {}; var network = performance.getEntries() || {}; return network;";
-		String netData = ((JavascriptExecutor)SeleniumUtil.getDriver()).executeScript(scriptToExecute).toString();
-		System.out.println("network data"+netData);
+		/*
+		 * final Har httpMessages = SeleniumUtil.proxyServer.getHar(); for(HarEntry
+		 * httpMessage : httpMessages.getLog().getEntries()){
+		 * 
+		 * // check no errors on the XHR requests
+		 * if(httpMessage.getRequest().getUrl().contains("/messageset")) {
+		 * Assert.assertEquals(200, httpMessage.getResponse().getStatus()); } }
+		 */
 	}
 	
 	@When("^user click on leave data$")
 	public void clickLeaveData() throws InterruptedException {
 		HomePage.clickLeaveData();
-		LogEntries jsErrors = SeleniumUtil.getDriver().manage().logs().get(LogType.BROWSER);
-		
-		System.out.println("Print all Log"+jsErrors.getAll());
-		String scriptToExecute = "var performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance || {}; var network = performance.getEntries() || {}; return network;";
-		String netData = ((JavascriptExecutor)SeleniumUtil.getDriver()).executeScript(scriptToExecute).toString();
-		System.out.println("network data"+netData);
-	}
+		/*
+		 * LogEntries jsErrors =
+		 * SeleniumUtil.getDriver().manage().logs().get(LogType.PERFORMANCE);
+		 * 
+		 * System.out.println("Print all Log"+jsErrors.getAll()); String scriptToExecute
+		 * =
+		 * "var performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance || {}; var network = performance.getEntries() || {}; return network;"
+		 * ; String netData =
+		 * ((JavascriptExecutor)SeleniumUtil.getDriver()).executeScript(scriptToExecute)
+		 * .toString(); System.out.println("network data"+netData);
+		 */
+     
+}
 }

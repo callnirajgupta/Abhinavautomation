@@ -141,7 +141,7 @@ public class HomePage {
 		SeleniumUtil.getWebElement(NEXT_BTN).click();
 	}
    public static void clickViewOfferBtn() {
-		
+	   SeleniumUtil.waitWebElementClickable(VIEW_OFFER, 60);
 		SeleniumUtil.getWebElement(VIEW_OFFER).click();
 	}
    public static void clickApplyDirectly(int butttonId) {
@@ -150,11 +150,13 @@ public class HomePage {
 		elementList.get(butttonId).click();
 	}
    
-   public static void enterfinancing(int index,String FirstName,String lastName,String email ,String phone) {
+   public static void enterfinancing(int index,String FirstName,String lastName,String email ,String phone,int phoneIndex) {
+	   SeleniumUtil.scrollToWebElement(FIRST_NAME);
 	   SeleniumUtil.getWebElements(FIRST_NAME).get(index).sendKeys(FirstName);
 	   SeleniumUtil.getWebElements(LAST_NAME).get(index).sendKeys(lastName);
 	   SeleniumUtil.getWebElements(EMAIL).get(index).sendKeys(email);
-	   SeleniumUtil.getWebElements(PHONE).get(index).sendKeys(phone);
+	   //SeleniumUtil.waitWebElementClickable(PHONE, 15);
+	   SeleniumUtil.getWebElements(PHONE).get(phoneIndex).sendKeys(phone);
 	}
    
    
